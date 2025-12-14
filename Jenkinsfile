@@ -27,7 +27,7 @@ pipeline {
         stage('Lint & Test') {
             steps {
                 sh '''
-                source venv/bin/activate
+                . venv/bin/activate
                 pip install flake8 pytest
                 flake8 . || true
                 python3 -m unittest discover tests || echo "No tests found"
