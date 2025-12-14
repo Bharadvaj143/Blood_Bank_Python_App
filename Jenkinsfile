@@ -3,7 +3,6 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = "bharadvajnanepalli/python-flask-blood-bank"
-        KUBE_CONFIG = credentials('kubeconfig-credentials-id') // Jenkins credential ID
     }
 
     stages {
@@ -24,14 +23,15 @@ pipeline {
             }
         }
 
-        stage('Lint & Test') {
+        stage('Docker Build & Push') {
             steps {
-                sh '''
-                . venv/bin/activate
-                pip install flake8 pytest
-                flake8 . || true
-                python3 -m unittest discover tests || echo "No tests found"
-                '''
+                script {
+                    dockerImage = docker.build("${DOCKER_IMAGE}:${env.BUILD_NUMBER}")
+                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-credentials-id') {
+                        dockerImage.push()
+                        dockerImage.push('latest')
+                    }
+                }
             }
         }
 
