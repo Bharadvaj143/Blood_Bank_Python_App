@@ -8,5 +8,4 @@ pandas==2.0.3
 scikit-learn==1.3.2
 matplotlib==3.7.3
 
-# Optional: if email sending is used in email_sender.py
-smtplib  # built-in, no need to install separately
+joblib==1.3.2
