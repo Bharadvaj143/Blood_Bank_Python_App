@@ -2,14 +2,14 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "yourdockerhubusername/bloodbankapp"
+        DOCKER_IMAGE = "bharadvajnanepalli/python-flask-blood-bank"
         KUBE_CONFIG = credentials('kubeconfig-credentials-id') // Jenkins credential ID
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/OtherUsername/NewRepoName.git', branch: 'main'
+                git url: 'https://github.com/Bharadvaj143/Blood_Bank_Python_App.git', branch: 'main'
             }
         }
 
